@@ -13,27 +13,173 @@
 	<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-[#e5e9fa] flex items-center justify-center min-h-screen font-poppins">
-	<div class="w-full md:w-[468px] flex bg-gradient-to-br from-[#314070] to-[#161f3c] p-12 text-[#d4deff] rounded-2xl flex-col">
+<body class="bg-[#e5e9fa] flex items-center justify-center min-h-screen font-poppins flex-col">
+	<div class="w-full md:w-[468px] flex bg-gradient-to-br from-[#314070] to-[#161f3c] p-12 text-[#d4deff] rounded-2xl flex-col m-4 shadow-[0px_13px_15px_5px_#A5ADCF]">
         <svg xmlns="http://www.w3.org/2000/svg" class="-ml-3 cursor-pointer" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#6d7aa8" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M15 6l-6 6l6 6" />
         </svg>
         <h1 class="mt-6 text-2xl font-semibold">Confirmation</h1>
         <p class="mt-2 text-[#6a77a2] text-lg font-light leading-8 tracking-wide">Please enter the code we sent to the number 07******31</p>
-        <form class="flex items-center gap-8 mt-8 justify-evenly caret-transparent">
-            <input type="text" class="w-1/4 border-2 border-[#030d32] bg-transparent aspect-square outline-none rounded-md text-center text-[#dbe2fb] text-5xl font-semibold">
+        <form id="checkCode" class="flex items-center gap-5 mt-8 justify-evenly caret-transparent">
+
+            <!-- <input id="first" maxlength="1" type="text" class="w-1/4 border-2 border-[#030d32] bg-transparent aspect-square rounded-md text-center text-[#dbe2fb] text-5xl font-semibold outline-none"> -->
             
-            <input type="text" class="w-1/4 border-2 border-[#030d32] bg-transparent aspect-square outline-none rounded-md text-center text-[#dbe2fb] text-5xl font-semibold">
+            <input id="first" maxlength="1" type="text" class="w-1/4 border-2 border-[#030d32] bg-[#030d32] aspect-square rounded-md text-center text-[#dbe2fb] placeholder:text-[#343c69] text-5xl placeholder:font-extralight font-semibold selection:bg-transparent focus:outline focus:outline-1 focus:outline-slate-600 cursor-pointer" placeholder="&#8722;">
+
+            <input id="second" maxlength="1" type="text" class="w-1/4 border-2 border-[#030d32] bg-[#030d32] aspect-square outline-none rounded-md text-center text-[#dbe2fb] placeholder:text-[#343c69] text-5xl placeholder:font-extralight font-semibold selection:bg-transparent focus:outline focus:outline-1 focus:outline-slate-600 cursor-pointer" placeholder="&#8722;" disabled>
             
-            <input type="text" class="w-1/4 border-2 border-[#030d32] bg-[#030d32] aspect-square outline-none rounded-md text-center text-[#dbe2fb] placeholder:text-[#343c69] text-5xl placeholder:font-extralight cursor-none font-semibold" placeholder="&#8722;">
+            <input id="third" maxlength="1" type="text" class="w-1/4 border-2 border-[#030d32] bg-[#030d32] aspect-square outline-none rounded-md text-center text-[#dbe2fb] placeholder:text-[#343c69] text-5xl placeholder:font-extralight font-semibold selection:bg-transparent focus:outline focus:outline-1 focus:outline-slate-600 cursor-pointer" placeholder="&#8722;" disabled>
             
-            <input type="text" class="w-1/4 border-2 border-[#030d32] bg-[#030d32] aspect-square outline-none rounded-md text-center text-[#dbe2fb] placeholder:text-[#343c69] text-5xl placeholder:font-extralight cursor-none font-semibold" placeholder="&#8722;">
+            <input id="fourth" maxlength="1" type="text" class="w-1/4 border-2 border-[#030d32] bg-[#030d32] aspect-square outline-none rounded-md text-center text-[#dbe2fb] placeholder:text-[#343c69] text-5xl placeholder:font-extralight font-semibold selection:bg-transparent focus:outline focus:outline-1 focus:outline-slate-600 cursor-pointer" placeholder="&#8722;" disabled>
         </form>
-        <a href="#" class="mt-8 text-[#8393f8] font-semibold">RESEND CODE</a>
-        <button class="w-full py-4 mt-11 bg-gradient-to-r from-[#899ffc] to-[#a572ff] rounded-md font-semibold text-lg">
+        <a href="#" class="mt-8 text-[#8393f8] font-semibold transition-all duration-150 ease-in hover:text-white">RESEND CODE</a>
+        <button class="w-full py-4 mt-11 bg-gradient-to-r from-[#899ffc] to-[#a572ff] rounded-md font-semibold text-lg transition-all duration-150 ease-in hover:text-[#030d32]">
             Confirm
         </button>
+        <script>
+            const firstInput = document.getElementById('first');
+            const secondInput = document.getElementById('second');
+            const thirdInput = document.getElementById('third');
+            const fourthInput = document.getElementById('fourth');
+          
+            firstInput.addEventListener('input', function() {
+              const validNumberRegex = /^[0-9]$/; 
+              let enteredValue = this.value;
+          
+              if (validNumberRegex.test(enteredValue)) {
+                secondInput.removeAttribute('disabled');
+                secondInput.focus();
+                firstInput.classList.add('bg-transparent');
+                firstInput.classList.remove('bg-[#030d32]');
+              } else {
+                fourthInput.value = '';
+                thirdInput.value = '';
+                secondInput.value = '';
+                firstInput.value = '';
+                secondInput.setAttribute('disabled', 'true');
+                thirdInput.setAttribute('disabled', 'true');
+                fourthInput.setAttribute('disabled', 'true');
+                first.classList.remove('bg-transparent');
+                firstInput.classList.add('bg-[#030d32]');
+                secondInput.classList.remove('bg-transparent');
+                secondInput.classList.add('bg-[#030d32]');
+                thirdInput.classList.remove('bg-transparent');
+                thirdInput.classList.add('bg-[#030d32]');
+                fourthInput.classList.remove('bg-transparent');
+                fourthInput.classList.add('bg-[#030d32]');
+
+              }
+            });
+
+            secondInput.addEventListener('input', function() {
+              const validNumberRegex = /^[0-9]$/; 
+              let enteredValue = this.value;
+          
+              if (validNumberRegex.test(enteredValue)) {
+                thirdInput.removeAttribute('disabled');
+                thirdInput.focus();
+                secondInput.classList.add('bg-transparent');
+                secondInput.classList.remove('bg-[#030d32]');
+              } else {
+                secondInput.value = '';
+                firstInput.value = '';
+                thirdInput.setAttribute('disabled', 'true');
+              }
+            });
+
+            thirdInput.addEventListener('input', function() {
+              const validNumberRegex = /^[0-9]$/; 
+              let enteredValue = this.value;
+              
+              if (validNumberRegex.test(enteredValue)) {
+                fourthInput.removeAttribute('disabled');
+                fourthInput.focus();
+                thirdInput.classList.add('bg-transparent');
+                thirdInput.classList.remove('bg-[#030d32]');
+
+              } else {
+                thirdInput.value = '';
+                secondInput.value = '';
+                fourthInput.setAttribute('disabled', 'true');
+              }
+            });
+
+            fourthInput.addEventListener('input', function() {
+                const validNumberRegex = /^[0-9]$/; 
+                let enteredValue = this.value;
+                
+                if (validNumberRegex.test(enteredValue)) {
+                    fourthInput.removeAttribute('disabled');
+                    fourthInput.focus();
+                    this.classList.add('bg-transparent');
+                    this.classList.remove('bg-[#030d32]');
+
+                }
+            });
+
+            firstInput.addEventListener("keydown", function(event) {
+                let keyCode = event.keyCode || event.which;
+                if (keyCode === 8) {
+                    firstInput.value = '';
+                    event.preventDefault();
+                    this.classList.remove('bg-transparent');
+                    this.classList.add('bg-[#030d32]');
+
+                }
+            });
+
+            secondInput.addEventListener("keydown", function(event) {
+                let keyCode = event.keyCode || event.which;
+                if (keyCode === 8) {
+                    secondInput.value = '';
+                    event.preventDefault();
+                    this.classList.remove('bg-transparent');
+                    this.classList.add('bg-[#030d32]');
+                }
+            });
+
+            thirdInput.addEventListener("keydown", function(event) {
+                let keyCode = event.keyCode || event.which;
+                if (keyCode === 8) {
+                    thirdInput.value = '';
+                    event.preventDefault();
+                    this.classList.remove('bg-transparent');
+                    this.classList.add('bg-[#030d32]');
+                }
+            });
+
+            fourthInput.addEventListener("keydown", function(event) {
+                let keyCode = event.keyCode || event.which;
+                if (keyCode === 8) {
+                    fourthInput.value = '';
+                    event.preventDefault();
+                    this.classList.remove('bg-transparent');
+                    this.classList.add('bg-[#030d32]');
+                }
+            });
+
+            firstInput.addEventListener('focus', function () { this.select(); });
+            secondInput.addEventListener('focus', function () { this.select(); });
+            thirdInput.addEventListener('focus', function () { this.select(); });
+            fourthInput.addEventListener('focus', function () { this.select(); });
+        </script>
+    </div>
+    <div class="w-full mt-10 md:w-[468px] flex bg-[#f6f7ff] p-12 text-[#293165] rounded-2xl flex-col relative m-4 shadow-[0px_13px_15px_5px_#c7cbe5] mb-20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute cursor-pointer top-10 right-10" width="34" height="34" viewBox="0 0 24 24" stroke-width="2" stroke="#b1c0ff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+        </svg>
+        <h1 class="mt-6 text-xl font-semibold text-center">Verification Code</h1>
+        <p class="mt-6 text-[#6a77a2] text-center text-lg font-light leading-7 tracking-wide">Enter this verification code on your other device to sign in.</p>
+        <ul class="flex items-center gap-8 py-4 mt-8 text-4xl font-bold bg-white justify-evenly">
+            <li>5</li>
+            <li>8</li>
+            <li>3</li>
+            <li>1</li>
+        </ul>
+        <a href="#" class="mt-8 text-[#8393f8] font-semibold block text-center transition-all duration-150 ease-in hover:text-white">CLOSE</a>
     </div>
 </body>
 </html>
